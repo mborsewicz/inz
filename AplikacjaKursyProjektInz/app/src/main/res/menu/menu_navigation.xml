@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/przegladaj_kursy"
+            android:title="Przeglądaj kursy"
+            android:icon="@drawable/ic_home_black_24dp"/>
+        <item
+            android:id="@+id/dodaj_kurs"
+            android:title="Dodaj kurs"
+            android:icon="@drawable/ic_settings_black_24dp"/>
+        <item
+            android:id="@+id/moje_konto"
+            android:title="Moje konto"
+            android:icon="@drawable/ic_local_movies_black_24dp"/>
+        <item
+            android:id="@+id/wyloguj"
+            android:title="Wyloguj"
+            android:icon="@drawable/ic_photo_library_black_24dp"/>
+    </group>
+</menu>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardKurs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        >
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <pl.brsk.brsk.aplikacjakursyprojektinz.CircularNetworkImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewHero"
+                android:layout_marginLeft="14dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+
+                />
+
+
+            <TextView
+                android:text="Tytuł"
+                android:id="@+id/tytul"
+                android:paddingRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:paddingTop="10dp"
+                android:textStyle="bold"
+                android:textColor="#38363a"
+                android:layout_alignTop="@+id/imageViewHero"
+                android:layout_toRightOf="@+id/imageViewHero"
+                android:layout_toEndOf="@+id/imageViewHero"
+                />
+
+            <TextView
+                android:id="@+id/textViewName"
+                android:paddingTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tytul"
+                android:layout_toRightOf="@+id/tytul"
+                android:textColor="#38363a"
+                />
+
+            <TextView
+                android:text="Cena"
+                android:id="@+id/cena"
+                android:textColor="#38363a"
+                android:paddingRight="10dp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tytul"
+                android:layout_alignLeft="@+id/tytul"
+                android:layout_alignStart="@+id/tytul"
+                />
+
+            <TextView
+                android:id="@+id/textViewPublisher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewName"
+                android:layout_alignStart="@+id/textViewName"
+                android:textColor="#38363a"
+                />
+
+            <TextView
+                android:id="@+id/textViewShortDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cena"
+                android:layout_alignStart="@+id/cena"
+                android:textColor="#9c0008"
+                />
+
+
+
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
