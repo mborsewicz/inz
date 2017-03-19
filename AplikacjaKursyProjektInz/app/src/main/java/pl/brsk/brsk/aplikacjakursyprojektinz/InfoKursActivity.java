@@ -2,6 +2,9 @@ package pl.brsk.brsk.aplikacjakursyprojektinz;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -52,8 +56,12 @@ public class InfoKursActivity extends AppCompatActivity {
     private Button btnJoin;
     private Button btnZapisany;
     private RequestQueue requestQueue;
-    String czyPokazacButton;
-    ProgressDialog pDialog;
+    private String czyPokazacButton;
+    private ProgressDialog pDialog;
+    private RatingBar ratingBar;
+    private Button submitRateButton;
+    private TextView rateDisplay;
+    private TextView textOcen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +150,31 @@ public class InfoKursActivity extends AppCompatActivity {
 
         });
 
+        //-----------RatingBar---------------------------
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(Color.rgb(63, 81, 181), PorterDuff.Mode.SRC_ATOP);
+        ratingBar.setStepSize(1);
+        textOcen = (TextView) findViewById(R.id.textViewOcen);
+        rateDisplay = (TextView) findViewById(R.id.ratingDisplay);
+        rateDisplay.setText("Rate:");
+
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+
+                if(rating<1.0f){
+                    ratingBar.setRating(1.0f);
+                    rating = 1;
+                }
+                //obsluga nacisniecia gwiazdki TODO dodac
+                rateDisplay.setText(String.valueOf(rating));
+
+            }
+        });
+
+        //-----------RatingBar---------------------------
+
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -181,6 +214,13 @@ public class InfoKursActivity extends AppCompatActivity {
         );
 
     }
+
+    public void rateSubmit(View view) {
+        String ratingValue = String.valueOf(ratingBar.getRating());
+        rateDisplay.setText("Rate: " + ratingValue);
+        Toast.makeText(getApplicationContext(), "Rate: " + ratingValue, Toast.LENGTH_LONG).show();
+    }
+
 
     private JsonArrayRequest insertdata(String user_id, String id){
 
@@ -339,10 +379,16 @@ public class InfoKursActivity extends AppCompatActivity {
         if (Integer.parseInt(czyPokazacButton) == 0){
             btnJoin.setVisibility(View.VISIBLE);
             btnZapisany.setVisibility(View.GONE);
+            ratingBar.setVisibility(View.GONE);
+            rateDisplay.setVisibility(View.GONE);
+            textOcen.setVisibility(View.GONE);
         }
         else {
             btnJoin.setVisibility(View.GONE);
-            btnZapisany.setVisibility(View.VISIBLE);
+            btnZapisany.setVisibility(View.GONE);
+            ratingBar.setVisibility(View.VISIBLE);
+            rateDisplay.setVisibility(View.VISIBLE);
+            textOcen.setVisibility(View.VISIBLE);
         }
 
         return czyPokazacButton;

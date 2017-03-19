@@ -63,6 +63,8 @@ public class MovieActivity extends AppCompatActivity {
         });
 
 
+
+
         videoview = (VideoView) findViewById(R.id.VideoView);
         // Execute StreamVideo AsyncTask
 
@@ -83,7 +85,7 @@ public class MovieActivity extends AppCompatActivity {
                     MovieActivity.this);
             mediacontroller.setAnchorView(videoview);
             // Get the URL from String VideoURL
-            Uri video = Uri.parse("http://192.168.0.38/android_login_api/kursy/1/" + film_url);
+            Uri video = Uri.parse(AppConfig.DATA_FILMY + kurs_id + "/" + film_url);
             videoview.setMediaController(mediacontroller);
             videoview.setVideoURI(video);
 
@@ -101,6 +103,23 @@ public class MovieActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    //-----zapamietanie video w razie zmiany polozenia urzadzenia------
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        outState.putInt("possition", videoview.getCurrentPosition());
+        videoview.pause();
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        int pos = savedInstanceState.getInt("possition");
+        videoview.seekTo(pos);
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
 

@@ -89,13 +89,27 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"/>
 
-        <TextView
-            android:id="@+id/cenaKursu"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#93090b"
+            android:layout_gravity="center">
+
+            <TextView android:id="@+id/cenaKursu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
             android:textSize="20dp"
-            android:layout_gravity="center"/>
+            android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimary"
+                android:text=" zł"
+                android:layout_toRightOf="@+id/cenaKursu"
+                android:layout_marginTop="10dp"/>
+        </RelativeLayout>
 
         <Button
             android:id="@+id/join"
@@ -109,6 +123,7 @@
             android:layout_marginBottom="20dp"
             android:layout_gravity="center"/>
 
+
         <Button
             android:id="@+id/zapisany"
             android:layout_width="wrap_content"
@@ -120,6 +135,32 @@
             android:textColor="@color/black_background"
             android:layout_marginBottom="20dp"
             android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/textViewOcen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Oceń kurs"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"/>
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:rating="0"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/ratingDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Your Rate"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewLekcje"

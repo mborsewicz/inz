@@ -5,18 +5,19 @@ package pl.brsk.brsk.aplikacjakursyprojektinz;
  */
 public class AppConfig {
     // Server user login url
-    public static String URL_LOGIN = "http://192.168.0.38/android_login_api/login.php";
+    public static String URL_LOGIN = "http://192.168.2.100/android_login_api/login.php";
 
     // Server user register url
-    public static String URL_REGISTER = "http://192.168.0.38/android_login_api/register.php";
+    public static String URL_REGISTER = "http://192.168.2.100/android_login_api/register.php";
 
     //kursy
-    public static final String DATA_URL = "http://192.168.0.38/android_login_api/feed.php?page=";
-    public static final String DATA_URL_TOP5 = "http://192.168.0.38/android_login_api/feed_top5.php";
-    public static final String URL_IMAGE = "http://192.168.0.38/android_login_api/";
-    public static final String DATA_LESSONS_URL = "http://192.168.0.38/android_login_api/getLessons.php?course_id=";
-    public static final String DATA_INSERT_COURSE_MEMBER = "http://192.168.0.38/android_login_api/insertCourseMember.php?course_id=";
-    public static final String DATA_GET_BUTTON_INFO = "http://192.168.0.38/android_login_api/getButtonInfo.php?course_id=";
+    public static final String DATA_URL = "http://192.168.2.100/android_login_api/feed.php?page=";
+    public static final String DATA_URL_TOP5 = "http://192.168.2.100/android_login_api/feed_top5.php";
+    public static final String URL_IMAGE = "http://192.168.2.100/android_login_api/";
+    public static final String DATA_LESSONS_URL = "http://192.168.2.100/android_login_api/getLessons.php?course_id=";
+    public static final String DATA_INSERT_COURSE_MEMBER = "http://192.168.2.100/android_login_api/insertCourseMember.php?course_id=";
+    public static final String DATA_GET_BUTTON_INFO = "http://192.168.2.100/android_login_api/getButtonInfo.php?course_id=";
+    public static final String DATA_FILMY = "http://192.168.2.100/android_login_api/kursy/";
     //JSON TAGS
     public static final String TAG_IMAGE_URL = "image";
     public static final String TAG_NAME = "title";
