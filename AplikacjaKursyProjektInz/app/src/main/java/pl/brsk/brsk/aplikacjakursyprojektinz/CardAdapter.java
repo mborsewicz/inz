@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
@@ -31,6 +31,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         this.context = context;
     }
 
+   /* *//*SQLiteHandler db = new SQLiteHandler(context);
+    // Fetching user details from sqlite
+    HashMap<String, String> user = db.getUserDetails();*//*
+
+    final String id = user.get("user_id");*/
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
@@ -45,12 +51,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
         //Getting the particular item from the list
         Kurs kurs =  kursy.get(position);
+        String id_kursu = kurs.getId();
 
         //Loading image from url
         imageLoader = CustomVolleyRequest.getInstance(context).getImageLoader();
-        imageLoader.get(AppConfig.URL_IMAGE + kurs.getImage(), ImageLoader.getImageListener(holder.imageView, android.R.drawable.ic_dialog_info, android.R.drawable.ic_dialog_alert));
+        imageLoader.get(AppConfig.URL_IMAGE + "kursy/" + id_kursu + "/" + kurs.getImage(), ImageLoader.getImageListener(holder.imageView, android.R.drawable.ic_dialog_info, android.R.drawable.ic_dialog_alert));
 
         //Showing data on the views
+
         holder.imageView.setImageUrl(AppConfig.URL_IMAGE + kurs.getImage(), imageLoader);
         holder.textViewName.setText(kurs.getTitle());
         holder.textViewPublisher.setText(kurs.getPrice());

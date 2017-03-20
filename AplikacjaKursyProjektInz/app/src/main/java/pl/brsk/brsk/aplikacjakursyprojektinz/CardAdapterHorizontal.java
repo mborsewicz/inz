@@ -45,10 +45,11 @@ public class CardAdapterHorizontal extends RecyclerView.Adapter<CardAdapterHoriz
 
         //Getting the particular item from the list
         Kurs kurs =  kursy.get(position);
+        String id_kursu = kurs.getId();
 
         //Loading image from url
         imageLoader = CustomVolleyRequest.getInstance(context).getImageLoader();
-        imageLoader.get(AppConfig.URL_IMAGE + kurs.getImage(), ImageLoader.getImageListener(holder.imageView, android.R.drawable.ic_dialog_info, android.R.drawable.ic_dialog_alert));
+        imageLoader.get(AppConfig.URL_IMAGE + "kursy/" + id_kursu + "/" + kurs.getImage(), ImageLoader.getImageListener(holder.imageView, android.R.drawable.ic_dialog_info, android.R.drawable.ic_dialog_alert));
 
         //Showing data on the views
         holder.imageView.setImageUrl(AppConfig.URL_IMAGE + kurs.getImage(), imageLoader);

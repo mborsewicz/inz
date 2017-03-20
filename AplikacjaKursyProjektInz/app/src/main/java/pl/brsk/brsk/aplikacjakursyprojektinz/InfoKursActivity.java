@@ -265,9 +265,8 @@ public class InfoKursActivity extends AppCompatActivity {
 
     }
 
-    private JsonArrayRequest getDataFromServer(int user_id) {
+    private JsonArrayRequest getDataFromServer(final int user_id) {
 
-        //Initializing ProgressBar
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 
         //Displaying Progressbar
@@ -279,7 +278,7 @@ public class InfoKursActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        parseData(response);
+                        parseData(response, String.valueOf(user_id));
                         //Hiding the progressbar
                         progressBar.setVisibility(View.GONE);
 
@@ -305,7 +304,7 @@ public class InfoKursActivity extends AppCompatActivity {
         //Incrementing the request counter
     }
 
-    private void parseData(JSONArray array) {
+    private void parseData(JSONArray array, String user_id) {
         String course_title = null;
         String course_description = null;
         String course_price = null;
@@ -338,8 +337,8 @@ public class InfoKursActivity extends AppCompatActivity {
                 course_category = json.getString(AppConfig.TAG_LESSON_category);
 
                 mImageLoader = CustomVolleyRequest.getInstance(this.getApplicationContext()).getImageLoader();
-                mImageLoader.get(AppConfig.URL_IMAGE + lekcja.getBigImage(), ImageLoader.getImageListener(mNetworkImageView, 0, 0));
-                mNetworkImageView.setImageUrl(AppConfig.URL_IMAGE + lekcja.getBigImage(), mImageLoader);
+                mImageLoader.get(AppConfig.URL_IMAGE + "kursy/" + String.valueOf(user_id) + "/" + lekcja.getBigImage(), ImageLoader.getImageListener(mNetworkImageView, 0, 0));
+                mNetworkImageView.setImageUrl(AppConfig.URL_IMAGE + "kursy/" + String.valueOf(user_id) + "/" + lekcja.getBigImage(), mImageLoader);
                 mNetworkImageView.setAdjustViewBounds(true);
                 mNetworkImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
