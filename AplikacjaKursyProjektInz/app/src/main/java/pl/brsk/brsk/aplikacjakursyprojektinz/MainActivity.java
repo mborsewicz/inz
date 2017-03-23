@@ -393,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case R.id.dodaj_kurs:
-                        Intent intent2 = new Intent(MainActivity.this, DodajKursActivity.class);
+                        Intent intent2 = new Intent(MainActivity.this, AddCourseActivity.class);
                         startActivity(intent2);
 
                         break;

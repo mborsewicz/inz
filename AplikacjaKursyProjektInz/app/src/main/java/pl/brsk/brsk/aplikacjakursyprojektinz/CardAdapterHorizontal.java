@@ -52,7 +52,7 @@ public class CardAdapterHorizontal extends RecyclerView.Adapter<CardAdapterHoriz
         imageLoader.get(AppConfig.URL_IMAGE + "kursy/" + id_kursu + "/" + kurs.getImage(), ImageLoader.getImageListener(holder.imageView, android.R.drawable.ic_dialog_info, android.R.drawable.ic_dialog_alert));
 
         //Showing data on the views
-        holder.imageView.setImageUrl(AppConfig.URL_IMAGE + kurs.getImage(), imageLoader);
+        holder.imageView.setImageUrl(AppConfig.URL_IMAGE + "kursy/" + id_kursu + "/" + kurs.getImage(), imageLoader);
         holder.textViewName.setText(kurs.getTitle());
         holder.textViewPublisher.setText(kurs.getPrice());
         //holder.textViewShortDescription.setText(kurs.getShortDescription());

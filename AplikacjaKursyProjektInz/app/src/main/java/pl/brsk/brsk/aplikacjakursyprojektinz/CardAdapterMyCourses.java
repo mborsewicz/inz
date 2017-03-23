@@ -14,7 +14,7 @@ import com.android.volley.toolbox.ImageLoader;
 import java.util.HashMap;
 import java.util.List;
 
-public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
+public class CardAdapterMyCourses extends RecyclerView.Adapter<CardAdapterMyCourses.ViewHolder> {
 
     //Imageloader to load image
     private ImageLoader imageLoader;
@@ -24,7 +24,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     List<Kurs> kursy;
 
     //Constructor of this class
-    public CardAdapter(List<Kurs> kursy, Context context){
+    public CardAdapterMyCourses(List<Kurs> kursy, Context context){
         super();
         //Getting all superheroes
         this.kursy = kursy;
@@ -40,7 +40,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.kursy_list, parent, false);
+                .inflate(R.layout.moje_kursy_list, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;

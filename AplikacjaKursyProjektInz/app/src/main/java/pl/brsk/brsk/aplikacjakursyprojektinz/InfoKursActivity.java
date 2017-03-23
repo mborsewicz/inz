@@ -279,6 +279,39 @@ public class InfoKursActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         parseData(response, String.valueOf(user_id));
+                        //parseLessons(response, String.valueOf(user_id));
+                        //Hiding the progressbar
+                        progressBar.setVisibility(View.GONE);
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(InfoKursActivity.this, "Wszystkie lekcje", Toast.LENGTH_SHORT).show();
+                        //Hiding the progressbar
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+
+        //Returning the request
+        return jsonArrayRequest;
+    }
+
+    private JsonArrayRequest getLessonData(final int user_id) {
+
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+
+        //Displaying Progressbar
+        progressBar.setVisibility(View.VISIBLE);
+        setProgressBarIndeterminateVisibility(true);
+
+        Log.d("DebugTag", "Value user_id:" + user_id);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(AppConfig.DATA_LESSON + String.valueOf(user_id),
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        parseLessons(response, String.valueOf(user_id));
                         //Hiding the progressbar
                         progressBar.setVisibility(View.GONE);
 
@@ -300,20 +333,18 @@ public class InfoKursActivity extends AppCompatActivity {
     private void getData(String user_id, String id) {
         //Adding the method to the queue by calling the method getDataFromServer
         requestQueue.add(getDataFromServer(Integer.parseInt(user_id)));
+        requestQueue.add(getLessonData(Integer.parseInt(user_id)));
         requestQueue.add(getButtonInfo(user_id, id));
         //Incrementing the request counter
     }
 
-    private void parseData(JSONArray array, String user_id) {
-        String course_title = null;
-        String course_description = null;
-        String course_price = null;
-        String course_category = null;
+    private void parseLessons(JSONArray array, String user_id) {
+        String big_image = null;
 
 
         Log.d("DebugTag", "Value array.length() w parseData:" + array.length());
         for (int i = 0; i < array.length(); i++) {
-            //Creating the superhero object
+
             Lekcja lekcja = new Lekcja();
 
             JSONObject json = null;
@@ -329,16 +360,51 @@ public class InfoKursActivity extends AppCompatActivity {
                 lekcja.setVideo(json.getString(AppConfig.TAG_LESSON_video));
                 lekcja.setFree(json.getString(AppConfig.TAG_LESSON_free));
                 lekcja.setIs_enabled(json.getString(AppConfig.TAG_LESSON_is_enabled));
-                lekcja.setBigImage(json.getString(AppConfig.TAG_LESSON_bigimage));
 
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            listaLekcje.add(lekcja);
+
+        }
+    }
+
+    private void parseData(JSONArray array, String user_id) {
+        String big_image = null;
+        String course_title = null;
+        String course_description = null;
+        String course_price = null;
+        String course_category = null;
+
+
+        Log.d("DebugTag", "Value array.length() w parseData:" + array.length());
+        for (int i = 0; i < array.length(); i++) {
+            //Creating the superhero object
+            //Lekcja lekcja = new Lekcja();
+
+            JSONObject json = null;
+            try {
+
+                //Getting json
+                json = array.getJSONObject(i);
+
+                //Adding data to the superhero object
+                /*lekcja.setId(json.getString(AppConfig.TAG_LESSON_ID));
+                lekcja.setDescription(json.getString(AppConfig.TAG_LESSON_lesson_description));
+                lekcja.setTitle(json.getString(AppConfig.TAG_LESSON_lesson_title));
+                lekcja.setVideo(json.getString(AppConfig.TAG_LESSON_video));
+                lekcja.setFree(json.getString(AppConfig.TAG_LESSON_free));
+                lekcja.setIs_enabled(json.getString(AppConfig.TAG_LESSON_is_enabled));*/
+
+                big_image = json.getString(AppConfig.TAG_LESSON_bigimage);
                 course_title = json.getString(AppConfig.TAG_LESSON_course_title);
                 course_price = json.getString(AppConfig.TAG_LESSON_course_price);
                 course_description = json.getString(AppConfig.TAG_LESSON_course_description);
                 course_category = json.getString(AppConfig.TAG_LESSON_category);
 
                 mImageLoader = CustomVolleyRequest.getInstance(this.getApplicationContext()).getImageLoader();
-                mImageLoader.get(AppConfig.URL_IMAGE + "kursy/" + String.valueOf(user_id) + "/" + lekcja.getBigImage(), ImageLoader.getImageListener(mNetworkImageView, 0, 0));
-                mNetworkImageView.setImageUrl(AppConfig.URL_IMAGE + "kursy/" + String.valueOf(user_id) + "/" + lekcja.getBigImage(), mImageLoader);
+                mImageLoader.get(AppConfig.URL_IMAGE + "kursy/" + String.valueOf(user_id) + "/" + big_image, ImageLoader.getImageListener(mNetworkImageView, 0, 0));
+                mNetworkImageView.setImageUrl(AppConfig.URL_IMAGE + "kursy/" + String.valueOf(user_id) + "/" + big_image, mImageLoader);
                 mNetworkImageView.setAdjustViewBounds(true);
                 mNetworkImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
@@ -347,7 +413,7 @@ public class InfoKursActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            listaLekcje.add(lekcja);
+            //listaLekcje.add(lekcja);
 
         }
         Log.d("DebugCourse_title", "Value course_title przed dodaniem:" + course_title);
