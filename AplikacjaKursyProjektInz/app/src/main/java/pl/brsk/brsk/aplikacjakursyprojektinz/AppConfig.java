@@ -21,6 +21,7 @@ public class AppConfig {
     public static final String DATA_INSERT_COURSE = "http://192.168.2.100/android_login_api/addCourse.php";
     public static final String DATA_LESSON = "http://192.168.2.100/android_login_api/getOneLesson.php?course_id=";
     public static final String DATA_STWORZONE = "http://192.168.2.100/android_login_api/stworzoneKursy.php?user_id=";
+    public static final String DATA_KOMENTARZE = "http://192.168.2.100/android_login_api/getLessonComments.php?course_id=";
     //JSON TAGS
     public static final String TAG_IMAGE_URL = "image";
     public static final String TAG_NAME = "title";

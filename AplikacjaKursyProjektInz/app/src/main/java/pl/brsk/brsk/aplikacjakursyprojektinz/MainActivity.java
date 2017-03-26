@@ -14,12 +14,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -174,10 +176,17 @@ public class MainActivity extends AppCompatActivity {
                         Kurs kurs = new Kurs();
                         kurs = listaKursy1.get(position);
 
-                        Intent i = new Intent(getApplicationContext(), InfoKursActivity.class);
-
+                        Intent i = new Intent(getApplicationContext(), ShowCourseInfoActivity.class);
                         i.putExtra("id", kurs.getId());
                         startActivity(i);
+
+                        //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        /*Bundle bundle = new Bundle();
+                        bundle.putString("id", kurs.getId() );
+                        FragmentInfoCourse fragInfo = new FragmentInfoCourse();
+                        fragInfo.setArguments(bundle);
+                        transaction.commit();*/
+                        //newInstance(kurs.getId());
 
                            /* Intent intent = new Intent(KursyActivity.this, InfoKursActivity.class);
                             startActivity(intent);
@@ -198,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
                         Kurs kurs = new Kurs();
                         kurs = listaKursy2.get(position);
 
-                        Intent i = new Intent(getApplicationContext(), InfoKursActivity.class);
+                        Intent i = new Intent(getApplicationContext(), ShowCourseInfoActivity.class);
 
                         i.putExtra("id", kurs.getId());
                         startActivity(i);
@@ -235,6 +244,16 @@ public class MainActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    public static FragmentInfoCourse newInstance(String id) {
+        FragmentInfoCourse myFragment = new FragmentInfoCourse();
+
+        Bundle args = new Bundle();
+        args.putString("id", id);
+        myFragment.setArguments(args);
+
+        return myFragment;
     }
 
     private JsonArrayRequest getDataFromServer1(int requestCount) {

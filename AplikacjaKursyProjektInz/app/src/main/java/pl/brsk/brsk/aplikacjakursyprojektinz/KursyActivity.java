@@ -126,7 +126,7 @@ public class KursyActivity extends AppCompatActivity implements RecyclerView.OnS
                             Kurs kurs = new Kurs();
                             kurs =  listaKursy.get(position);
 
-                            Intent i = new Intent(getApplicationContext(), InfoKursActivity.class);
+                            Intent i = new Intent(getApplicationContext(), ShowCourseInfoActivity.class);
 
                             i.putExtra("id",kurs.getId());
                             startActivity(i);

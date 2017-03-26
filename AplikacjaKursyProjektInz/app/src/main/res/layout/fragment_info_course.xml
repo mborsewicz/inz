@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pl.brsk.brsk.aplikacjakursyprojektinz.FragmentInfoCourse"
+    android:background="@color/indigo2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/networkImageView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:background="@color/indigo10">
+
+
+            <TextView
+                android:id="@+id/nazwa_kursu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/indigo2"
+                android:textSize="22dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:background="@color/indigo6">
+            <TextView
+                android:id="@+id/kategoriaKursu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/indigo2"
+                android:textSize="18dp"
+                android:layout_gravity="right"
+                android:layout_marginBottom="11dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginRight="10dp"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/opisKursu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_background"
+            android:textSize="17dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView android:id="@+id/cenaKursu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimary"
+                android:text=" zł"
+                android:layout_toRightOf="@+id/cenaKursu"
+                android:layout_marginTop="10dp"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/join"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:padding="10dp"
+            android:background="@color/orange"
+            android:text="@string/join"
+            android:textColor="@color/black_background"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"/>
+
+
+        <Button
+            android:id="@+id/zapisany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:padding="10dp"
+            android:background="@color/colorPrimary"
+            android:text="Posiadasz ten kurs"
+            android:textColor="@color/black_background"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/textViewOcen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Oceń kurs"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"/>
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:rating="0"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/ratingDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Your Rate"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewLekcje"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="#151515"/>
+
+    </LinearLayout>
+
+</ScrollView>

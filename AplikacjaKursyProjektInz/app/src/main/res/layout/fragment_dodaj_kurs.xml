@@ -104,6 +104,15 @@
             android:text="Dodaj kurs"
             android:textColor="@color/black_background" />
 
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Kurs będzie widoczny dla wszystkich użytkowników po zaakceptowaniu go przez administratora serwisu."
+            android:textColor="@color/input_login"
+            android:layout_marginBottom="10dp"/>
+
         </LinearLayout>
 
 </ScrollView>
