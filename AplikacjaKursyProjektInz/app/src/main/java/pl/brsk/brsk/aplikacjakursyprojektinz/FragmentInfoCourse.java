@@ -1,5 +1,6 @@
 package pl.brsk.brsk.aplikacjakursyprojektinz;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -74,7 +75,6 @@ public class FragmentInfoCourse extends Fragment {
     }
 
 
-
     @Override
     public void setArguments(Bundle args) {
         super.setArguments(args);
@@ -136,7 +136,7 @@ public class FragmentInfoCourse extends Fragment {
         Log.d("pobieramy dane: ","user_id  " +user_id );
 
         requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        getData(user_id, id);
+        getData(user_id, id, view);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewLekcje);
         recyclerView.setHasFixedSize(true);
@@ -145,7 +145,6 @@ public class FragmentInfoCourse extends Fragment {
 
         //Initializing our superheroes list
         listaLekcje = new ArrayList<>();
-        requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
         //initializing our adapter
         adapter = new LekcjaCardAdapter(listaLekcje, getActivity().getApplicationContext());
@@ -228,7 +227,6 @@ public class FragmentInfoCourse extends Fragment {
                 })
         );
 
-
         return view;
     }
 
@@ -281,7 +279,12 @@ public class FragmentInfoCourse extends Fragment {
 
     }
 
-    private JsonArrayRequest getDataFromServer(final int user_id) {
+    private JsonArrayRequest getDataFromServer(final int user_id, View view) {
+
+        final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar1);
+
+        //Displaying Progressbar
+        progressBar.setVisibility(View.VISIBLE);
 
 
         Log.d("DebugTag", "Value user_id:" + user_id);
@@ -289,7 +292,9 @@ public class FragmentInfoCourse extends Fragment {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+
                         parseData(response, String.valueOf(user_id));
+                        progressBar.setVisibility(View.GONE);
                         //parseLessons(response, String.valueOf(user_id));
 
                     }
@@ -328,9 +333,9 @@ public class FragmentInfoCourse extends Fragment {
         return jsonArrayRequest;
     }
 
-    private void getData(String user_id, String id) {
+    private void getData(String user_id, String id, View view) {
         //Adding the method to the queue by calling the method getDataFromServer
-        requestQueue.add(getDataFromServer(Integer.parseInt(user_id)));
+        requestQueue.add(getDataFromServer(Integer.parseInt(user_id), view));
         requestQueue.add(getLessonData(Integer.parseInt(user_id)));
         requestQueue.add(getButtonInfo(user_id, id));
         //Incrementing the request counter
@@ -433,6 +438,9 @@ public class FragmentInfoCourse extends Fragment {
             //Getting json
             json = array.getJSONObject(0);
             czyPokazacButton = json.getString("show");
+
+            Log.d("FragmentInfoCourse", "CzyPokazacButton" + czyPokazacButton);
+
 
 
         } catch (JSONException e) {

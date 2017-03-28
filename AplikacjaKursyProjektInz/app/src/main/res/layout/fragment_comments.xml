@@ -7,10 +7,53 @@
     android:background="@color/indigo2">
 
     <LinearLayout
+        android:id="@+id/test1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Dodaj komentarz:"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="4dp"
+            android:textColor="@color/black_background"/>
+
+        <EditText
+            android:id="@+id/edit_text_comment"
+            android:layout_width="fill_parent"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:background="@color/white"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/indigo10"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:inputType="textMultiLine"
+            android:layout_height="64dp"
+            android:gravity="top"/>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/checkBoxRegulamin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/indigo10"
+            android:text="Oświadczam, że zapoznałem/am się i akceptuję regulamin serwisu KursoManiak"/>
+
+        <Button
+            android:id="@+id/btnDodajKomentarz"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/button"
+            android:text="Dodaj komentarz"
+            android:textColor="@color/black_background"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="10dp"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"

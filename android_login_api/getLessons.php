@@ -9,12 +9,20 @@
 
 	mysqli_set_charset($con, "utf8");
 
-	 $sql = "select l.id, l.description AS 'lesson_description', l.title AS 'lesson_title', l.video, l.free, l.is_enabled, c.image, c.title AS 'course_title', 
+	 $sql = "select c.image, c.title AS 'course_title', 
 			c.price, c.description AS 'course_description', cc.title AS 'category', c.big_image from courses c
 			join courses_sections cs ON c.id = cs.course_id
-			join lessons l ON l.section_id = cs.id
 			join courses_categories cc ON cc.id = c.category_id
 			where course_id = '$course_id'";
+
+			
+			//$sql = "select l.id, l.description AS 'lesson_description', l.title AS 'lesson_title', l.video, l.free, l.is_enabled, c.image, c.title AS 'course_title', 
+			//c.price, c.description AS 'course_description', cc.title AS 'category', c.big_image from courses c
+			//join courses_sections cs ON c.id = cs.course_id
+			//join lessons l ON l.section_id = cs.id
+			//join courses_categories cc ON cc.id = c.category_id
+			//where course_id = '$course_id'";
+			
 
 	 $result = mysqli_query($con,$sql); 
 
@@ -22,12 +30,12 @@
 	 
 	 while($row = mysqli_fetch_array($result)){
 	 array_push($res, array(
-	 "id"=>$row['id'],
-	 "lesson_description"=>$row['lesson_description'],
-	 "lesson_title"=>$row['lesson_title'],
-	 "video"=>$row['video'],
-	 "free"=>$row['free'],
-	 "is_enabled"=>$row['is_enabled'],
+	 //"id"=>$row['id'],
+	 //"lesson_description"=>$row['lesson_description'],
+	 //"lesson_title"=>$row['lesson_title'],
+	 //"video"=>$row['video'],
+	 //"free"=>$row['free'],
+	 //"is_enabled"=>$row['is_enabled'],
 	 "image"=>$row['image'],
 	 "course_title"=>$row['course_title'],
 	 "price"=>$row['price'],
