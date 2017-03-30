@@ -11,6 +11,7 @@ public class AppConfig {
     public static String URL_REGISTER = "http://192.168.2.100/android_login_api/register.php";
 
     //kursy
+    public static  final  String DATA_UPLOAD_IMAGE = "http://192.168.2.100/android_login_api/upload_image.php";
     public static final String DATA_URL = "http://192.168.2.100/android_login_api/feed.php?page=";
     public static final String DATA_URL_TOP5 = "http://192.168.2.100/android_login_api/feed_top5.php";
     public static final String URL_IMAGE = "http://192.168.2.100/android_login_api/";
@@ -23,6 +24,7 @@ public class AppConfig {
     public static final String DATA_LESSON = "http://192.168.2.100/android_login_api/getOneLesson.php?course_id=";
     public static final String DATA_STWORZONE = "http://192.168.2.100/android_login_api/stworzoneKursy.php?user_id=";
     public static final String DATA_KOMENTARZE = "http://192.168.2.100/android_login_api/getLessonComments.php?course_id=";
+    public static final String DATA_IS_COURSE_OWNER = "http://192.168.2.100/android_login_api/isCoursesOwner.php?course_id=";
     //JSON TAGS
     public static final String TAG_IMAGE_URL = "image";
     public static final String TAG_NAME = "title";

@@ -1,5 +1,6 @@
 package pl.brsk.brsk.aplikacjakursyprojektinz;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -53,7 +54,15 @@ public class ShowCourseInfoActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        contextOfApplication = getApplicationContext();
 
+    }
+
+    // a static variable to get a reference of our application context
+    public static Context contextOfApplication;
+    public static Context getContextOfApplication()
+    {
+        return contextOfApplication;
     }
 
     public static FragmentInfoCourse newInstance(String id) {
