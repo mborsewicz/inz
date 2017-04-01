@@ -92,6 +92,7 @@ public class FragmentInfoCourse extends Fragment {
     private Button btnChoose;
     private ImageView imgView;
     private Button btnUpload;
+    private String user_id;
 
     ProgressDialog prgDialog;
     String encodedString;
@@ -165,7 +166,7 @@ public class FragmentInfoCourse extends Fragment {
         final String id = user.get("user_id");  //user
         String name = user.get("name");
         final String email = user.get("email");
-        final String user_id = kurs_id; //kurs
+        user_id = kurs_id; //kurs
 
         Log.d("pobieramy dane: ","id " + id);
         Log.d("pobieramy dane: ","user_id  " +user_id );
@@ -380,6 +381,8 @@ public class FragmentInfoCourse extends Fragment {
                 Log.d("encodeImagetoString "," onPostExecute: ");
                 prgDialog.setMessage("Calling Upload");
                 // Put converted Image string into Async Http Post param
+                params.put("kurs_id", user_id);
+                Log.d("onActivityResult"," kurs_id: " + user_id);
                 params.put("image", encodedString);
                 // Trigger Image upload
                 triggerImageUpload();

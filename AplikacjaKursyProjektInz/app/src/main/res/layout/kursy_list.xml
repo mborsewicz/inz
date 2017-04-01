@@ -22,8 +22,8 @@
             android:background="@color/white">
 
             <pl.brsk.brsk.aplikacjakursyprojektinz.CircularNetworkImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:id="@+id/imageViewHero"
                 android:layout_marginLeft="14dp"
                 android:layout_marginStart="14dp"
