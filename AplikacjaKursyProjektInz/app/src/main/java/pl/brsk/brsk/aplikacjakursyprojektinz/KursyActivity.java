@@ -6,9 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +48,11 @@ public class KursyActivity extends AppCompatActivity implements RecyclerView.OnS
     private TextView txtName;
     private TextView txtEmail;
     private TextView txtUser_id;
+    Spinner spinnerFood;
+    private ArrayList<Category> categoriesList;
+    private Category kategoria;
+    private String wybranaKategoria;
+    private String URL_CATEGORIES = "http://192.168.0.38/android_login_api/getCategory.php";
 
 
 
@@ -69,8 +78,7 @@ public class KursyActivity extends AppCompatActivity implements RecyclerView.OnS
         setContentView(R.layout.activity_kursy);
 
         txtName = (TextView) findViewById(R.id.name);
-        txtEmail = (TextView) findViewById(R.id.email);
-        txtUser_id = (TextView) findViewById(R.id.user_id);
+        spinnerFood = (Spinner)findViewById(R.id.spinFood);
 
 
         // SqLite database handler
@@ -82,6 +90,30 @@ public class KursyActivity extends AppCompatActivity implements RecyclerView.OnS
         if (!session.isLoggedIn()) {
             logoutUser();
         }
+
+        categoriesList = new ArrayList<Category>();
+
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(getDataFromServer());
+
+
+
+        spinnerFood.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                kategoria = categoriesList.get(position);
+                wybranaKategoria = kategoria.getId();
+
+                Toast.makeText(getApplicationContext(), kategoria.getTitle() + kategoria.getId(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -108,8 +140,6 @@ public class KursyActivity extends AppCompatActivity implements RecyclerView.OnS
         String user_id = user.get("user_id");
 
         txtName.setText(name);
-        txtEmail.setText(email);
-        txtUser_id.setText(user_id);
 
         //Initializing Views
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -161,6 +191,69 @@ public class KursyActivity extends AppCompatActivity implements RecyclerView.OnS
         recyclerView.setAdapter(adapter);
 
 
+    }
+
+    private JsonArrayRequest getDataFromServer() {
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL_CATEGORIES,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        Log.d("bierzemy id: ","response.lenght: " + response.length());
+                        for (int i = 0; i < response.length(); i++) {
+
+                            Category kategoria = new Category();
+                            JSONObject json = null;
+                            try {
+                                //Getting json
+                                json = response.getJSONObject(i);
+
+                                kategoria.setId(json.getString("id"));
+                                kategoria.setTitle(json.getString("title"));
+                                Log.d("bierzemy id: ","bierzemy jsona: " + json.getString("id"));
+                                Log.d("bierzemy title: ","bierzemy jsona: " + json.getString("title"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            categoriesList.add(kategoria);
+                        }
+                        populateSpinner();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+
+        //Returning the request
+        return jsonArrayRequest;
+    }
+
+    private void populateSpinner() {
+
+        List<String> lables = new ArrayList<String>();
+
+        for (int i = 0; i < categoriesList.size(); i++) {
+            Log.d("populateSpinner() ","json: " + categoriesList.get(i).getTitle());
+            lables.add(categoriesList.get(i).getTitle());
+            Log.d("category ","bierzemy jsona: " + categoriesList.get(i).getTitle());
+        }
+
+        // Creating adapter for spinner
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item,lables);
+
+        Log.d("category ","spinnerAdapter: " + spinnerAdapter);
+
+        // Drop down layout style - list view with radio button
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        // attaching data adapter to spinner
+        spinnerFood.setAdapter(spinnerAdapter);
     }
 
     //Request to get json from server we are passing an integer here

@@ -127,7 +127,7 @@ public class FragmentComments extends Fragment {
                 }
                 else{
                     insertComment(user_id, kurs_id, text);
-
+                    Toast.makeText(getActivity().getApplicationContext(), "Dodano komentarz", Toast.LENGTH_LONG).show();
                     getActivity().finish();
                     startActivity(getActivity().getIntent());
                 }
@@ -157,7 +157,8 @@ public class FragmentComments extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-
+                Toast.makeText(getActivity().getApplicationContext(), "Błąd przy dodawaniu komentarza",
+                        Toast.LENGTH_LONG).show();
 
             }
         }) {
@@ -176,7 +177,6 @@ public class FragmentComments extends Fragment {
 
         };
 
-        // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }

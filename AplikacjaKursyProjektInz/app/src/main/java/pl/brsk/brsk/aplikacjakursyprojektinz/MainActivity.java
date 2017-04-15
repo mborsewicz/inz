@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         txtName = (TextView) findViewById(R.id.name);
         txtEmail = (TextView) findViewById(R.id.email);
-        txtUser_id = (TextView) findViewById(R.id.user_id);
+        //txtUser_id = (TextView) findViewById(R.id.user_id);
         top5_ocena = (TextView) findViewById(R.id.top5_ocena);
         top5_najnowsze = (TextView) findViewById(R.id.top5_najnowsze);
         top5_wyswietlenia = (TextView) findViewById(R.id.top5_wyswietlenia);
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         // Displaying the user details on the screen
         txtName.setText(name);
         txtEmail.setText(email);
-        txtUser_id.setText(user_id);
+        //txtUser_id.setText(user_id);
 
 
         initNavigationDrawer(email);

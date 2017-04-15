@@ -4,13 +4,9 @@ package pl.brsk.brsk.aplikacjakursyprojektinz;
  * Created by brsk on 2016-11-11.
  */
 public class AppConfig {
-    // Server user login url
+
     public static String URL_LOGIN = "http://192.168.2.100/android_login_api/login.php";
-
-    // Server user register url
     public static String URL_REGISTER = "http://192.168.2.100/android_login_api/register.php";
-
-    //kursy
     public static  final  String DATA_UPLOAD_IMAGE = "http://192.168.2.100/android_login_api/upload_image.php";
     public static final String DATA_URL = "http://192.168.2.100/android_login_api/feed.php?page=";
     public static final String DATA_URL_TOP5 = "http://192.168.2.100/android_login_api/feed_top5.php";
@@ -25,13 +21,13 @@ public class AppConfig {
     public static final String DATA_STWORZONE = "http://192.168.2.100/android_login_api/stworzoneKursy.php?user_id=";
     public static final String DATA_KOMENTARZE = "http://192.168.2.100/android_login_api/getLessonComments.php?course_id=";
     public static final String DATA_IS_COURSE_OWNER = "http://192.168.2.100/android_login_api/isCoursesOwner.php?course_id=";
+    public static final String DATA_UPLOAD_VIDEO = "http://192.168.2.100/android_login_api/upload.php";
     //JSON TAGS
     public static final String TAG_IMAGE_URL = "image";
     public static final String TAG_NAME = "title";
     public static final String TAG_PUBLISHER = "price";
     public static final String TAG_ID = "id";
     public static final String TAG_SHORT_DESC = "short_description";
-
     public static final String TAG_LESSON_ID = "id";
     public static final String TAG_LESSON_lesson_description = "lesson_description";
     public static final String TAG_LESSON_lesson_title = "lesson_title";

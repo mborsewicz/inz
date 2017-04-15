@@ -21,6 +21,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,15 +92,20 @@ public class FragmentInfoCourse extends Fragment {
     private TextView textOcen;
     private TextView txtPrzeslane;
     private Button btnChoose;
-    private ImageView imgView;
     private Button btnUpload;
     private String user_id;
+    private Button buttonChoose;
+    private Button buttonUpload;
+    private TextView textView;
+    private TextView textViewResponse;
 
     ProgressDialog prgDialog;
     String encodedString;
     RequestParams params = new RequestParams();
     String imgPath, fileName;
     Bitmap bitmap;
+    private static final int SELECT_VIDEO = 3;
+    private String selectedPath;
 
     private static int RESULT_LOAD_IMG = 1;
 
@@ -151,7 +158,11 @@ public class FragmentInfoCourse extends Fragment {
         btnZapisany = (Button) view.findViewById(R.id.zapisany);
         btnChoose = (Button) view.findViewById(R.id.buttonLoadPicture);
         btnUpload = (Button) view.findViewById(R.id.uploadImage);
-        imgView = (ImageView) view.findViewById(R.id.imgView);
+        //-------------video-------------
+        buttonChoose = (Button) view.findViewById(R.id.buttonChoose);
+        buttonUpload = (Button) view.findViewById(R.id.buttonUpload);
+        textView = (TextView) view.findViewById(R.id.textView);
+        textViewResponse = (TextView) view.findViewById(R.id.textViewResponse);
 
         /*kurs_id=getArguments().getString("id", "1");
         Log.d("Fragment: ","wartosc kurs_id " + kurs_id);*/
@@ -170,6 +181,24 @@ public class FragmentInfoCourse extends Fragment {
 
         Log.d("pobieramy dane: ","id " + id);
         Log.d("pobieramy dane: ","user_id  " +user_id );
+
+        buttonChoose.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                chooseVideo();
+
+            }
+        });
+
+        buttonUpload.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                uploadVideo();
+
+            }
+        });
 
         requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         getData(user_id, id, view);
@@ -287,6 +316,64 @@ public class FragmentInfoCourse extends Fragment {
         return view;
     }
 
+    //-------------------UPLOAD VIDEO---------------------
+    private void chooseVideo() {
+        Intent intent = new Intent();
+        intent.setType("video/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select a Video "), SELECT_VIDEO);
+    }
+
+
+    public String getPath(Uri uri) {
+        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor.close();
+
+        cursor = getActivity().getContentResolver().query(
+                android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA));
+        cursor.close();
+
+        return path;
+    }
+
+    private void uploadVideo() {
+        class UploadVideo extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog uploading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+               uploading = ProgressDialog.show(getActivity(), "Uploading File", "Please wait...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                uploading.dismiss();
+                textViewResponse.setText(Html.fromHtml("<b>Uploaded at <a href='" + s + "'>" + s + "</a></b>"));
+                textViewResponse.setMovementMethod(LinkMovementMethod.getInstance());
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                Upload u = new Upload();
+                String msg = u.uploadVideo(selectedPath);
+                return msg;
+            }
+        }
+        UploadVideo uv = new UploadVideo();
+        uv.execute();
+    }
+
+    //---------------END OF UPLOAD VIDEO CODE---------------
+
     public void loadImagefromGallery(View view) {
         // Create intent to Open Image applications like Gallery, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -320,14 +407,24 @@ public class FragmentInfoCourse extends Fragment {
                 Log.d(" onActivityResult"," imgPath: " + imgPath);
                 cursor.close();
                 // Set the Image in ImageView
-                imgView.setImageBitmap(BitmapFactory.decodeFile(imgPath));
                 // Get the Image's file name
                 String fileNameSegments[] = imgPath.split("/");
                 fileName = fileNameSegments[fileNameSegments.length - 1];
                 // Put file name in Async Http Post Param which will used in Php web app
                 params.put("filename", fileName);
+                Toast.makeText(getActivity().getApplicationContext(), "Załadowano obraz",
+                        Toast.LENGTH_LONG).show();
 
-            } else {
+            }
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_VIDEO) {
+                System.out.println("SELECT_VIDEO");
+                Uri selectedImageUri = data.getData();
+                selectedPath = getPath(selectedImageUri);
+                textView.setText(selectedPath);
+            }
+        }else {
                 Toast.makeText(getActivity().getApplicationContext(), "You haven't picked Image",
                         Toast.LENGTH_LONG).show();
             }
@@ -738,12 +835,14 @@ public class FragmentInfoCourse extends Fragment {
         if (Integer.parseInt(czyWlascicielKursu) == 0){
             btnUpload.setVisibility(View.GONE);
             btnChoose.setVisibility(View.GONE);
-            imgView.setVisibility(View.GONE);
+            buttonChoose.setVisibility(View.GONE);
+            buttonUpload.setVisibility(View.GONE);
 
         }else{
             btnUpload.setVisibility(View.VISIBLE);
             btnChoose.setVisibility(View.VISIBLE);
-            imgView.setVisibility(View.VISIBLE);
+            buttonChoose.setVisibility(View.VISIBLE);
+            buttonUpload.setVisibility(View.VISIBLE);
         }
 
         return czyPokazacButton;

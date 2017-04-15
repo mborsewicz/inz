@@ -11,9 +11,10 @@
 
 	 $sql = "select l.id, l.description AS 'lesson_description', l.title AS 'lesson_title', l.video, l.free, l.is_enabled from lessons l
             join courses_sections cs ON l.section_id = cs.id
-            join courses c ON l.section_id = c.id
+            join courses c ON cs.course_id = c.id
 			join courses_categories cc ON cc.id = c.category_id
-			where course_id = '$course_id'";
+			where c.id = '$course_id'";
+			
 
 	 $result = mysqli_query($con,$sql); 
 
